@@ -1,0 +1,142 @@
+.marsImg{
+    height: 50%;
+    width: 50%
+}
+.day{
+    display: flex; 
+    flex-direction: column;
+}
+.display{
+    display: inline; 
+}
+.displayNone{
+    display: none;
+}
+.arrow{
+    cursor: pointer;
+    position: fixed;
+    right: 30px; 
+    bottom: 30px;
+    transition: all 1s;
+}
+.noArrow{
+    position: fixed;
+    right: -70px;
+    bottom: 30px;
+    transition: all 1s;
+}
+.arrowActual{
+    color: white;
+}
+.paragraph1{
+    color: white;
+}
+.smallInformer{
+    color: white;
+    font-size: 11px;
+}
+.btn{
+    border: solid 3px white;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.btn:hover{
+    animation: rotateA 1s infinite;
+}
+.btn:active{
+    transform: translateY(4px);
+}
+.btn1{
+    border: solid 3px white;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.btn1:hover{
+    animation: rotateB 0.3s forwards;
+}
+.btn1:active{
+    transform: translateY(4px);
+}
+.searchBtn{
+    border: none;
+}
+.rotationContainer{
+    border: white;
+    height: 100px;
+    width: 100px;
+    contain: content;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
+    border-radius: 50%;
+}
+.divA{
+    background-color: green;
+}
+.divB{
+    background-color: orange;
+}
+.divC{
+    background-color: blue;
+}
+.divD{
+    background-color: purple;
+}
+.frontDiv{ 
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 94%;
+    width: 94%;
+    border-radius: 50%;
+}
+.rotationContainer:hover{
+    transform: rotate(50deg);
+}
+/* @keyframes rotateA {
+    100%{
+        rotate: 10deg;
+    }
+} */
+@keyframes rotateB {
+    100%{
+        rotate: -10deg;
+    }
+}
+@keyframes rotateA {
+    0%{
+        background-image: linear-gradient(90deg, red, blue, green, orange, purple);
+    }
+    20%{
+        background-image: linear-gradient(90deg, purple, red, blue, green, orange);  
+        transform: rotate(120deg);  
+    }
+    40%{
+        background-image: linear-gradient(90deg, orange, purple, red, blue, green);
+        transform: rotate(180deg);    
+    }
+    60%{
+        background-image: linear-gradient(90deg, green, orange, purple, red, blue); 
+        transform: rotate(240deg);   
+    }
+    80%{
+        background-image: linear-gradient(90deg, blue, green, orange, purple, red);
+        transform: rotate(300deg);    
+    }
+    100%{
+        background-image: linear-gradient(90deg, red, blue, green, orange, purple);
+        transform: rotate(360deg);
+    }
+}

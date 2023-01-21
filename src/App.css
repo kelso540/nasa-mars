@@ -1,0 +1,14 @@
+html{
+  scroll-behavior: smooth;
+}
+body{
+  background-color: black;
+}
+a{
+  text-decoration: none;
+}
+.App {
+  text-align: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  height: 400px;
+}
