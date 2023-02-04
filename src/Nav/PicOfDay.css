@@ -1,0 +1,8 @@
+.dayPicDiv h4{
+    padding: 0 10px;  
+    font-size: 14px; 
+}
+.dayPicDiv img{
+    border-radius: 8px;
+    width: 100%;
+}

@@ -1,6 +1,12 @@
-.imgDiv{ 
-    padding: 20px;
+.imgDiv{
+    margin: 10px 0; 
+    width: 100%;
 }
-.marsImg{
-    width: 90%
+.imgDiv img{
+    width: 50%;
+}
+@media screen and (max-width: 800px) {
+    .imgDiv img{
+        width: 100%;
+    } 
 }

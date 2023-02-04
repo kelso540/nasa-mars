@@ -18,6 +18,31 @@ function App() {
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
+  const makeToday =()=>{
+    let date = new Date(); 
+    let year = '';
+    let month = ''; 
+    let day = ''; 
+
+    date.setDate(date.getDate());
+    year = `${date.getFullYear()}`;
+
+    if(Number(date.getMonth()) < 10){
+      month = `0${(date.getMonth()) + 1}`; 
+    } else {
+      month = `${(date.getMonth()) + 1}`
+    };
+
+    if(Number(date.getDate()) < 10){
+      day = `0${date.getDate()}`; 
+    } else {
+      day = `${date.getDate()}`
+    };
+
+    setDate(`${year}-${month}-${day}`); 
+    makeDay1(); 
+  }
+
     const makeDay1 =()=>{
       let date = new Date(); 
       let year = '';
@@ -89,11 +114,10 @@ function App() {
         day = `${date.getDate()}`
       };
 
-      setDateDayBack3(`${year}-${month}-${day}`);
-      runDays();   
+      setDateDayBack3(`${year}-${month}-${day}`);   
     }
 
-    const runDays = ()=>{
+    useEffect(()=>{
       const getMarsPicturesToday = () => {
         fetch(`/.netlify/functions/getMarsData?date=${date}`)
         .then(async response => {
@@ -174,8 +198,7 @@ function App() {
       };
 
       getMarsPicturesToday();  
-
-    }; 
+    }, [dateDayBack3]); 
 
     const getPictureOfDay = useCallback(()=>{
       fetch(`/.netlify/functions/getPicDay`)
@@ -197,7 +220,7 @@ function App() {
         console.log('caught it!',err)
       })
 
-      makeDay1();
+      makeToday();
 
       // setDates();
 

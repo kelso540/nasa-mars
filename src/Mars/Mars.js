@@ -124,6 +124,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     setDaySearch(false);
     setDayDisplay('Today'); 
     setDisplayDate(date);
+    console.log(date);
     if(mappedInfo.length === 0){
       setNoImageToDisplay1(true);
     } else {
@@ -206,13 +207,17 @@ const handler = (e)=>{
         <h2>Today is {dayNow}</h2>
         <h4>Rover photos from {dayDisplay} {displayDate}</h4>
         <p className='paragraph1'>Type in a date or choose a day below...</p>
-        <input type='text' onChange={handler} placeholder='YYYY-MM-DD' id='inputValue'/>
-        <button className='searchBtn' onClick={getMarsPicturesToday}>Search</button>
+        <div className='searchBar'>
+          <input type='text' onChange={handler} placeholder='YYYY-MM-DD' id='inputValue'/>
+          <div className='searchBtn' onClick={getMarsPicturesToday}>&#x1F50E;&#xFE0E;</div>
+        </div>
         <p className='smallInformer'><strong>(include 0 before single digits ex. 2023-01-05)</strong></p>
-        <button className='btn' onClick={setDayBeforeThatData}>3 Days Ago</button>
-        <button className='btn1' onClick={setDayBeforeData}>2 Days Ago</button> 
-        <button className='btn' onClick={setYesterdayData}>Yesterday</button> 
-        <button className='btn1' onClick={setTodayData}>Today</button>
+        <div className='flexBtn'>
+          <div className='btn btn1' onClick={setDayBeforeThatData}></div>
+          <div className='btn btn2' onClick={setDayBeforeData}></div> 
+          <div className='btn btn3' onClick={setYesterdayData}></div> 
+          <div className='btn btn4' onClick={setTodayData}></div>
+        </div>
       </div>
       <div className={(daySearch)?'day':'displayNone'}>
         <h2 className={(noImageToDisplaySearch)?'display':'displayNone'}>No Pictures From That Day</h2>

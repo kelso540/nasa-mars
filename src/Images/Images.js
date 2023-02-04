@@ -14,7 +14,7 @@ const opacityGain = useSpring({
   return (
     <s.div className='imgDiv' style={{...opacityGain}}>
         <h2>{cam}</h2>
-        <a href={src} target='_blank' rel="noreferrer"><img src={src} alt='roverImg' className='marsImg'/></a>
+        <a href={src} target='_blank' rel="noreferrer"><img src={src} alt='roverImg'/></a>
     </s.div>
   )
 }

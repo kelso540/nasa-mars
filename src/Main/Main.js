@@ -47,7 +47,7 @@ export default function Main() {
 
       <div className="mainHead">
         <h1>Our Universe</h1>
-        <h3>A place to find NASA's picture of the day and Mars rover Images!</h3>
+        <h3>A place to find NASA's picture of the day and Mars rover images!</h3>
       </div>
     </div>
   )
