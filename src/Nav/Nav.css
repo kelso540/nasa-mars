@@ -10,6 +10,7 @@
 .navHead{
     display: flex;
     gap: 20px;
+    color: white;
 } 
 .navHead:hover{
     animation: changeHeadColor 3s infinite;

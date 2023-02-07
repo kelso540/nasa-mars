@@ -53,15 +53,19 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       setSearchData(data.photos) 
     })
     .catch(err => {
-      console.log('caught it!',err);
-      setDayDisplay('Not a valid date');
+      console.log('caught it!',err)
+      setDayDisplay('Not a valid date')
+      setDaySearch(true)
+      setDay1(false)
+      setDay2(false)
+      setDay3(false)
+      setDay4(false)
     });
   };
 
   useEffect(()=>{
     setNumber(1); 
-    setText(''); 
-      setDaySearch(true); 
+    setText('');  
       setDay1(false);
       setDay2(false);
       setDay3(false);
@@ -202,7 +206,7 @@ const handler = (e)=>{
 
   return (
     <div>
-      <div> 
+      <div className='main'> 
         <h1>Mars Curiosity Images</h1>
         <h2>Today is {dayNow}</h2>
         <h4>Rover photos from {dayDisplay} {displayDate}</h4>

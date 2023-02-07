@@ -17,10 +17,12 @@ export default function Main() {
   return (
     <div className='mainDiv'>
       <div className='navDiv'>
-        <div className='navHead'>
-          <img src={earth} alt='earth' className='earth'/>
-          <strong className='mainLink'>Our Universe</strong>
-        </div>
+        <Link to='/'>
+          <div className='navHead'>
+            <img src={earth} alt='earth' className='earth'/>
+            <strong className='mainLink'>Our Universe</strong>
+          </div>
+        </Link>
         <div className='navLinks'>
           <Link to='/'><strong className='navLink A'>Image of the Day</strong></Link>
           <Link to='/mars'><strong className='navLink A'>Mars</strong></Link>
