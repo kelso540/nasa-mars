@@ -1,6 +1,6 @@
 const axios = require('axios'); 
 const handler = async (event) => { 
-  const API_KEY = 'Q7eUFC5b2mYxCPCNftgZNZ7n5GCTI9eRASdY3us3'; //process.env.API_KEY;
+  const API_KEY = process.env.API_KEY;
   const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`; 
   try { 
     const data = await axios.get(url)
