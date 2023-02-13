@@ -15,12 +15,70 @@ function App() {
   const [dateDayBack3, setDateDayBack3] = useState('');
   const [marsInfo, setMarsInfo] = useState([]);
   const [yesterday, setYesterday] = useState([]); 
+  const [call, setCall] = useState(false); 
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
-  useEffect(()=>{
-    const getMarsPictures3DaysBack = () => {
-      fetch(`/.netlify/functions/getDay4?date=${dateDayBack3}`)
+    // const getMarsPictures3DaysBack = () => {
+    //   fetch(`/.netlify/functions/getDay4?date=${dateDayBack3}`)
+    //   .then(async response => {
+    //     if(!response.ok) {
+    //       const text = await response.text();
+    //       throw new Error(text);
+    //      }
+    //     else {
+    //      return response.json();
+    //    }    
+    //   })
+    //   .then((data) => {
+    //     setDayBeforeThat(data.photos)
+    //   })
+    //   .catch(err => {
+    //     console.log('caught it!',err);
+    //   });
+    // }; 
+    // const getMarsPictures2DaysBack = () => {
+    //   fetch(`/.netlify/functions/getDay3?date=${dateDayBack2}`)
+    //   .then(async response => {
+    //     if(!response.ok) {
+    //       const text = await response.text();
+    //       throw new Error(text);
+    //      }
+    //     else {
+    //      return response.json();
+    //    }    
+    //   })
+    //   .then((data) => {
+    //     setDayBefore(data.photos)
+    //   })
+    //   .catch(err => {
+    //     console.log('caught it!',err);
+    //   }); 
+    //   getMarsPictures3DaysBack();
+    // };
+    // const getMarsPicturesYesterday = () => {
+    //   fetch(`/.netlify/functions/getDay2?date=${dateDayBack1}`)
+    //   .then(async response => {
+    //     if(!response.ok) {
+    //       const text = await response.text();
+    //       throw new Error(text);
+    //      }
+    //     else {
+    //      return response.json();
+    //    }    
+    //   })
+    //   .then((data) => {
+    //     setYesterday(data.photos)
+    //   })
+    //   .catch(err => {
+    //     console.log('caught it!',err);
+    //   }); 
+    //   getMarsPictures2DaysBack();
+    // };
+
+
+    const getMarsPictures = (date, info)=>{
+      fetch(`/.netlify/functions/getMarsData?date=${date}`)
       .then(async response => {
         if(!response.ok) {
           const text = await response.text();
@@ -31,79 +89,19 @@ function App() {
        }    
       })
       .then((data) => {
-        setDayBeforeThat(data.photos)
+        info(data.photos)
       })
       .catch(err => {
         console.log('caught it!',err);
       });
     }; 
-    const getMarsPictures2DaysBack = () => {
-      console.log('day back 2 ' + dateDayBack2); 
-      fetch(`/.netlify/functions/getDay3?date=${dateDayBack2}`)
-      .then(async response => {
-        if(!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
-         }
-        else {
-         return response.json();
-       }    
-      })
-      .then((data) => {
-        setDayBefore(data.photos)
-      })
-      .catch(err => {
-        console.log('caught it!',err);
-      }); 
-      getMarsPictures3DaysBack();
-    };
-    const getMarsPicturesYesterday = () => {
-      fetch(`/.netlify/functions/getDay2?date=${dateDayBack1}`)
-      .then(async response => {
-        if(!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
-         }
-        else {
-         return response.json();
-       }    
-      })
-      .then((data) => {
-        setYesterday(data.photos)
-      })
-      .catch(err => {
-        console.log('caught it!',err);
-      }); 
-      getMarsPictures2DaysBack();
-    };
-    const getMarsPicturesToday = () => {
-      fetch(`/.netlify/functions/getMarsData?date=${dateA}`)
-      .then(async response => {
-        if(!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
-         }
-        else {
-         return response.json();
-       }    
-      })
-      .then((data) => {
-        setMarsInfo(data.photos)
-      })
-      .catch(err => {
-        console.log('caught it!',err);
-      });
-      getMarsPicturesYesterday();
-    };
-    getMarsPicturesToday(); 
-  }, [dateA, dateDayBack1, dateDayBack2, dateDayBack3]);
 
-        const makeDay3 =()=>{
+        const makeDay = (num, returnDate)=>{
           let date = new Date(); 
           let year = '';
           let month = ''; 
           let day = ''; 
-          date.setDate(date.getDate() - 3);
+          date.setDate(date.getDate() - num);
           year = `${date.getFullYear()}`;
           if(Number(date.getMonth()) < 10){
             month = `0${(date.getMonth()) + 1}`; 
@@ -115,99 +113,46 @@ function App() {
           } else {
             day = `${date.getDate()}`
           };
-          setDateDayBack3(`${year}-${month}-${day}`); 
-          console.log('day 3 ' + dateDayBack3);
-          // getMarsPicturesToday();    
-        };
-        const makeDay2 =()=>{
-          let date = new Date(); 
-          let year = '';
-          let month = ''; 
-          let day = ''; 
-          date.setDate(date.getDate() - 2);
-          year = `${date.getFullYear()}`;
-          if(Number(date.getMonth()) < 10){
-            month = `0${(date.getMonth()) + 1}`; 
-          } else {
-            month = `${(date.getMonth()) + 1}`
-          };
-          if(Number(date.getDate()) < 10){
-            day = `0${date.getDate()}`; 
-          } else {
-            day = `${date.getDate()}`
-          };
-          setDateDayBack2(`${year}-${month}-${day}`);
-          console.log('day 2 ' + dateDayBack2); 
-          makeDay3(); 
-        };
-        const makeDay1 =()=>{
-          let date = new Date(); 
-          let year = '';
-          let month = ''; 
-          let day = ''; 
-          date.setDate(date.getDate() - 1);
-          year = `${date.getFullYear()}`;
-          if(Number(date.getMonth()) < 10){
-            month = `0${(date.getMonth()) + 1}`; 
-          } else {
-            month = `${(date.getMonth()) + 1}`
-          };
-          if(Number(date.getDate()) < 10){
-            day = `0${date.getDate()}`; 
-          } else {
-            day = `${date.getDate()}`
-          };
-          setDateDayBack1(`${year}-${month}-${day}`); 
-          console.log('day 1 ' + dateDayBack1);
-          makeDay2(); 
-        };
-        const makeToday =()=>{
-          let date = new Date(); 
-          let year = '';
-          let month = ''; 
-          let day = ''; 
-          date.setDate(date.getDate());
-          year = `${date.getFullYear()}`;
-          if(Number(date.getMonth()) < 10){
-            month = `0${(date.getMonth()) + 1}`; 
-          } else {
-            month = `${(date.getMonth()) + 1}`
-          };
-          if(Number(date.getDate()) < 10){
-            day = `0${date.getDate()}`; 
-          } else {
-            day = `${date.getDate()}`
-          };
-          setDate(`${year}-${month}-${day}`); 
-          makeDay1(); 
+          returnDate(`${year}-${month}-${day}`); 
         };
 
-      const getPictureOfDay = ()=>{
-        fetch(`/.netlify/functions/getPicDay`)
-        .then(response => {
-          if(!response.ok) {
-            const text = response.text();
-            throw new Error(text);
-           }
-          else {
-           return response.json();
-         }    
-        })
-        .then((data) => {
-          setInfo(data)
-          setDate(data.date)
-          console.log('getPictureOfDay ran')  
-        })
-        .catch(err => {
-          console.log('caught it!',err)
-        })
-        makeToday(); 
-      };
- 
+        useEffect(()=>{
+          const getPictureOfDay = ()=>{
+            fetch(`/.netlify/functions/getPicDay`)
+            .then(response => {
+              if(!response.ok) {
+                const text = response.text();
+                throw new Error(text);
+               }
+              else {
+               return response.json();
+             }    
+            })
+            .then((data) => {
+              setInfo(data)
+              setDate(data.date)
+              console.log('getPictureOfDay ran')
+              makeDay(0, setDate);   
+              makeDay(1, setDateDayBack1);
+              makeDay(2, setDateDayBack2);
+              makeDay(3, setDateDayBack3); 
+              setCall(true);   
+            })
+            .catch(err => {
+              console.log('caught it!',err)
+            }) 
+          };
+          getPictureOfDay(); 
+        }, []);
 
-    useEffect(()=>{
-      getPictureOfDay();
-    }, []);
+        useEffect(()=>{
+          if (call){
+            getMarsPictures(dateA, setMarsInfo); 
+            getMarsPictures(dateDayBack1, setYesterday); 
+            getMarsPictures(dateDayBack2, setDayBefore); 
+            getMarsPictures(dateDayBack3, setDayBeforeThat); 
+          } 
+        }, [call]);
 
   return (
     <div className="App">

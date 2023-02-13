@@ -71,9 +71,10 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       setDay3(false);
       setDay4(false);
       setDayDisplay(''); 
-      setDisplayDate(text);
-      if(searchData.length === 0){
+      setDisplayDate(text); 
+      if(searchData.length <= 0){
         setNoImageToDisplaySearch(true); 
+        console.log('search ran');
       } else {
         setNoImageToDisplaySearch(false);
       } 
@@ -195,8 +196,11 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   }, [arrowDisplay]);
 
   const scrollToTop = () =>{
-    window.scrollTo(0, 0); 
-}
+    window.scrollTo(0, 0);
+    setTimeout(()=>{
+      setNumber(0);
+    }, 1200); 
+  }; 
 
 const handler = (e)=>{
   setText(e.target.value); 
