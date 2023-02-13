@@ -19,64 +19,6 @@ function App() {
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
-    // const getMarsPictures3DaysBack = () => {
-    //   fetch(`/.netlify/functions/getDay4?date=${dateDayBack3}`)
-    //   .then(async response => {
-    //     if(!response.ok) {
-    //       const text = await response.text();
-    //       throw new Error(text);
-    //      }
-    //     else {
-    //      return response.json();
-    //    }    
-    //   })
-    //   .then((data) => {
-    //     setDayBeforeThat(data.photos)
-    //   })
-    //   .catch(err => {
-    //     console.log('caught it!',err);
-    //   });
-    // }; 
-    // const getMarsPictures2DaysBack = () => {
-    //   fetch(`/.netlify/functions/getDay3?date=${dateDayBack2}`)
-    //   .then(async response => {
-    //     if(!response.ok) {
-    //       const text = await response.text();
-    //       throw new Error(text);
-    //      }
-    //     else {
-    //      return response.json();
-    //    }    
-    //   })
-    //   .then((data) => {
-    //     setDayBefore(data.photos)
-    //   })
-    //   .catch(err => {
-    //     console.log('caught it!',err);
-    //   }); 
-    //   getMarsPictures3DaysBack();
-    // };
-    // const getMarsPicturesYesterday = () => {
-    //   fetch(`/.netlify/functions/getDay2?date=${dateDayBack1}`)
-    //   .then(async response => {
-    //     if(!response.ok) {
-    //       const text = await response.text();
-    //       throw new Error(text);
-    //      }
-    //     else {
-    //      return response.json();
-    //    }    
-    //   })
-    //   .then((data) => {
-    //     setYesterday(data.photos)
-    //   })
-    //   .catch(err => {
-    //     console.log('caught it!',err);
-    //   }); 
-    //   getMarsPictures2DaysBack();
-    // };
-
-
     const getMarsPictures = (date, info)=>{
       fetch(`/.netlify/functions/getMarsData?date=${date}`)
       .then(async response => {
