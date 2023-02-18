@@ -19,7 +19,7 @@ function App() {
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
-    const getMarsPictures = (date, info)=>{
+    const getMarsPictures = (date, setState)=>{
       fetch(`/.netlify/functions/getMarsData?date=${date}`)
       .then(async response => {
         if(!response.ok) {
@@ -30,8 +30,8 @@ function App() {
          return response.json();
        }    
       })
-      .then((data) => {
-        info(data.photos)
+      .then((response) => {
+        setState(response.photos)
       })
       .catch(err => {
         console.log('caught it!',err);
@@ -61,17 +61,17 @@ function App() {
         useEffect(()=>{
           const getPictureOfDay = ()=>{
             fetch(`/.netlify/functions/getPicDay`)
-            .then(response => {
+            .then(async response => {
               if(!response.ok) {
-                const text = response.text();
+                const text = await response.text();
                 throw new Error(text);
                }
               else {
                return response.json();
              }    
             })
-            .then((data) => {
-              setInfo(data)
+            .then(async data => {
+              setInfo(await data)
               setDate(data.date)
               console.log('getPictureOfDay ran')
               makeDay(0, setDate);   

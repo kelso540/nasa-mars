@@ -78,7 +78,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       } else {
         setNoImageToDisplaySearch(false);
       } 
-  }, [searchData]); 
+  }, [searchData]);                           
 
   const searchInfo = searchData.map((item, index)=>{
     if(index <= number){
@@ -120,70 +120,21 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       }
     }); 
 
-  const setTodayData = () => {
+  const sendData = (one, two, three, four, day, date, setImg, info) => {
     setNumber(0);
-    setDay1(true);
-    setDay2(false);
-    setDay3(false);
-    setDay4(false);
+    setDay1(one); 
+    setDay2(two);
+    setDay3(three);
+    setDay4(four);
     setDaySearch(false);
-    setDayDisplay('Today'); 
+    setDayDisplay(day); 
     setDisplayDate(date);
-    console.log(date);
-    if(mappedInfo.length === 0){
-      setNoImageToDisplay1(true);
+    if(info.length === 0){
+      setImg(true);
     } else {
-      setNoImageToDisplay1(false);
+      setImg(false);
     }
-  }
-
-  const setYesterdayData = () => {
-    setNumber(0);
-    setDay1(false);
-    setDay2(true);
-    setDay3(false);
-    setDay4(false); 
-    setDaySearch(false);
-    setDayDisplay('Yesterday'); 
-    setDisplayDate(dateDayBack1);
-    if(yesterdayPics.length === 0){
-      setNoImageToDisplay2(true); 
-    } else {
-      setNoImageToDisplay2(false);
-    } 
-  }
-
-  const setDayBeforeData = () => {
-    setNumber(0);
-    setDay1(false);
-    setDay2(false);
-    setDay3(true);
-    setDay4(false); 
-    setDaySearch(false);
-    setDayDisplay('2 Days Ago'); 
-    setDisplayDate(dateDayBack2); 
-    if(dayBeforePics.length === 0){
-      setNoImageToDisplay3(true);
-    } else {
-      setNoImageToDisplay3(false);
-    }
-  }
-
-  const setDayBeforeThatData = () => {
-    setNumber(0);
-    setDay1(false);
-    setDay2(false);
-    setDay3(false);
-    setDay4(true);
-    setDaySearch(false);
-    setDayDisplay('3 Days Ago'); 
-    setDisplayDate(dateDayBack3); 
-    if(thirdDayPics.length === 0){
-      setNoImageToDisplay4(true);
-    } else {
-      setNoImageToDisplay4(false);
-    }
-  }; 
+  };
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -221,10 +172,10 @@ const handler = (e)=>{
         </div>
         <p className='smallInformer'><strong>(include 0 before single digits ex. 2023-01-05)</strong></p>
         <div className='flexBtn'>
-          <div className='btn btn1' onClick={setDayBeforeThatData}></div>
-          <div className='btn btn2' onClick={setDayBeforeData}></div> 
-          <div className='btn btn3' onClick={setYesterdayData}></div> 
-          <div className='btn btn4' onClick={setTodayData}></div>
+          <div className='btn btn1' onClick={()=>sendData(false, false, false, true,'3 Days Ago', dateDayBack3, setNoImageToDisplay4, thirdDayPics)}></div>
+          <div className='btn btn2' onClick={()=>sendData(false, false, true, false,'2 Days Ago', dateDayBack2, setNoImageToDisplay3, dayBeforePics)}></div> 
+          <div className='btn btn3' onClick={()=>sendData(false, true, false, false,'Yesterday', dateDayBack1, setNoImageToDisplay2, yesterdayPics)}></div> 
+          <div className='btn btn4' onClick={()=>sendData(true, false, false, false,'Today', date, setNoImageToDisplay1, mappedInfo)}></div>
         </div>
       </div>
       <div className={(daySearch)?'day':'displayNone'}>
