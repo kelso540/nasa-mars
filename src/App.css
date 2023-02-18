@@ -12,3 +12,7 @@ a{
   font-family: 'M PLUS Rounded 1c', sans-serif;
   height: 400px;
 }
+.loading{
+  color: white;
+  font-size: 40px;
+}

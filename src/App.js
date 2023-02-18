@@ -4,6 +4,8 @@ import Mars from './Mars/Mars';
 import { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import PIcOfDay from './Nav/PIcOfDay';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [info, setInfo] = useState([]);
@@ -16,6 +18,7 @@ function App() {
   const [marsInfo, setMarsInfo] = useState([]);
   const [yesterday, setYesterday] = useState([]); 
   const [call, setCall] = useState(false); 
+  const [display, setDisplay] = useState(false); 
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
@@ -60,6 +63,7 @@ function App() {
 
         useEffect(()=>{
           const getPictureOfDay = ()=>{
+            setDisplay(false); 
             fetch(`/.netlify/functions/getPicDay`)
             .then(async response => {
               if(!response.ok) {
@@ -71,14 +75,14 @@ function App() {
              }    
             })
             .then(async data => {
-              setInfo(await data)
-              setDate(data.date)
-              console.log('getPictureOfDay ran')
+              setInfo(await data);
+              setDate(data.date);
               makeDay(0, setDate);   
               makeDay(1, setDateDayBack1);
               makeDay(2, setDateDayBack2);
               makeDay(3, setDateDayBack3); 
-              setCall(true);   
+              setCall(true);
+              setDisplay(true);    
             })
             .catch(err => {
               console.log('caught it!',err)
@@ -100,8 +104,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Main />
-        <Routes>
-          <Route path='/' element={<PIcOfDay info={info} />} />
+        <Routes>                                              //fa-solid fa-spinner fa-spin-pulse
+          <Route path='/' element={(display)?<PIcOfDay info={info} /> :<div><FontAwesomeIcon style={{color: 'white'}} icon={faSpinner} size='4x' className='fa-spin-pulse'/></div>} />
           <Route path='/mars' element={<Mars date={dateA} marsInfo={marsInfo} yesterday={yesterday} dayBefore={dayBefore} dayBeforeThat={dayBeforeThat} info={info} dateDayBack1={dateDayBack1} dateDayBack2={dateDayBack2} dateDayBack3={dateDayBack3} />} />
         </Routes>
       </BrowserRouter>
