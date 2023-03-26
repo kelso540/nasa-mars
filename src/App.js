@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import PIcOfDay from './Nav/PIcOfDay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from './Context/UserContext';
 
 function App() {
   const [info, setInfo] = useState([]);
@@ -19,6 +20,7 @@ function App() {
   const [yesterday, setYesterday] = useState([]); 
   const [call, setCall] = useState(false); 
   const [display, setDisplay] = useState(false); 
+  const [page, setPage] = useState("Image of the Day"); 
   // https://api.nasa.gov/planetary/apod?api_key=
   // /.netlify/functions/getPicDay
 
@@ -101,6 +103,7 @@ function App() {
         }, [call]);
 
   return (
+    <UserContext.Provider value={{page, setPage}}>
     <div className="App">
       <BrowserRouter>
         <Main />
@@ -110,6 +113,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    </UserContext.Provider>
   );
 };
 

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Main.css';
 import '../Nav/Nav.css';
 import earth from '../Pictures/earth.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../Context/UserContext';
 
 export default function Main() { 
+
+  const {page} = useContext(UserContext);
 
   const [display, setDisplay] = useState(true);
   
@@ -48,7 +51,7 @@ export default function Main() {
       </div>
 
       <div className="mainHead">
-        <h1>Our Universe</h1>
+        <h1>Our Universe - {page}</h1>
         <h3>A place to find NASA's picture of the day and Mars rover images!</h3>
       </div>
     </div>

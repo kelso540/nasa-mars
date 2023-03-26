@@ -1,7 +1,15 @@
-import React from 'react'; 
+import React, {useContext, useEffect} from 'react'; 
 import './PicOfDay.css'; 
+import { UserContext } from '../Context/UserContext';
 
 export default function PIcOfDay({info}) {
+
+  const {setPage} = useContext(UserContext);
+
+  useEffect(()=>{
+    setPage("Image of the Day");
+  })
+
   return (
     <div className='dayPicDiv'>
         <h1>NASA's Picture of the Day</h1>

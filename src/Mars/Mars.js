@@ -1,10 +1,13 @@
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Images from '../Images/Images';
 import './Mars.css'; 
+import { UserContext } from '../Context/UserContext';
 
 export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeThat, dateDayBack1, dateDayBack2, dateDayBack3}) {
+
+  const {setPage} = useContext(UserContext);
 
   const [number, setNumber] = useState(0);
   const [display, setDisplay] = useState(false);
@@ -156,6 +159,10 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
 const handler = (e)=>{
   setText(e.target.value); 
 }
+
+useEffect(()=>{
+  setPage('Mars Rover Images')
+})
 
   document.addEventListener('scroll', getScroll); 
 
