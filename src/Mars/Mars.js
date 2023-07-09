@@ -24,8 +24,14 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   const [noImageToDisplay3, setNoImageToDisplay3] = useState(false);
   const [noImageToDisplay4, setNoImageToDisplay4] = useState(false);
   const [noImageToDisplaySearch, setNoImageToDisplaySearch] = useState(false); 
-  const [text, setText] = useState(''); 
-  const [searchData, setSearchData] = useState([]); 
+  const [text, setText] = useState(undefined); 
+  const [searchData, setSearchData] = useState([]);    
+  const [mappedInfo, setMappedInfo] = useState([]); 
+  const [yesterdayPics, setYesterdayPics] = useState([]);
+  const [dayBeforePics, setDayBeforePics] = useState([]);
+  const [thirdDayPics, setThirdDayPics] = useState([]); 
+
+  const [searchInfo, setSearchInfo] = useState([]); 
 
   const getScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight; 
@@ -42,6 +48,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   const dayNow = `${fullDate[0]} ${fullDate[1]} ${fullDate[2]}, ${fullDate[3]}`;
 
   const getMarsPicturesToday = () => {
+    console.log('Text', text)
     fetch(`/.netlify/functions/getMarsData?date=${text}`)
     .then(async response => {
       if(!response.ok) {
@@ -67,8 +74,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   };
 
   useEffect(()=>{
-    setNumber(1); 
-    setText('');  
+    setNumber(1);  
       setDay1(false);
       setDay2(false);
       setDay3(false);
@@ -83,22 +89,29 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       } 
   }, [searchData, text]);                           
 
-  const searchInfo = searchData?.map((item, index)=>{
-    if(index <= number){
-      return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
-    } else {
-      return null
-    }
-  });
+  useEffect(()=>{
+    const searchInfo = searchData?.map((item, index)=>{
+      if(index <= number){
+        return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
+      } else {
+        return null
+      }
+    });
+    setSearchInfo(searchInfo); 
+  }, [display, number, searchData]); 
 
+  useEffect(()=>{
     const mappedInfo = marsInfo?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
       } else {
         return null
       }
-    }); 
-
+    });
+    setMappedInfo(mappedInfo);
+  }, [display, marsInfo, number]);
+  
+  useEffect(()=>{
     const yesterdayPics = yesterday?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
@@ -106,7 +119,10 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
         return null
       }
     }); 
+    setYesterdayPics(yesterdayPics); 
+  }, [display, yesterday, number]); 
 
+  useEffect(()=>{
     const dayBeforePics = dayBefore?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
@@ -114,7 +130,10 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
         return null
       }
     }); 
+    setDayBeforePics(dayBeforePics); 
+  }, [display, number, dayBefore]); 
 
+  useEffect(()=>{
     const thirdDayPics = dayBeforeThat?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
@@ -122,6 +141,8 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
         return null
       }
     }); 
+    setThirdDayPics(thirdDayPics); 
+  }, [display, number, dayBeforeThat])
 
   const sendData = (one, two, three, four, day, date, setImg, info) => {
     setNumber(0);
@@ -156,9 +177,13 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     }, 1200); 
   }; 
 
-const handler = (e)=>{
-  setText(e.target.value); 
-}
+  useEffect(()=>{
+    
+  }, [text])
+
+  const handler = (e)=>{
+    setText(e.target.value); 
+  }
 
 useEffect(()=>{
   setPage('Mars Rover Images')
@@ -203,6 +228,7 @@ useEffect(()=>{
       </div>
       <div className={(day4)?'day':'displayNone'}>
         <h2 className={(noImageToDisplay4)?'display':'displayNone'}>No Pictures From 3 Days Ago</h2>
+        {console.log(thirdDayPics)}
         {thirdDayPics}
       </div>
       <div className={(arrowDisplay)?'arrow':'noArrow'} onClick={scrollToTop}>
