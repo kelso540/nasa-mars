@@ -100,14 +100,14 @@ function App() {
             getMarsPictures(dateDayBack2, setDayBefore); 
             getMarsPictures(dateDayBack3, setDayBeforeThat); 
           } 
-        }, [call]);
+        }, [call, dateA, dateDayBack1, dateDayBack2, dateDayBack3]);
 
   return (
     <UserContext.Provider value={{page, setPage}}>
     <div className="App">
       <BrowserRouter>
         <Main />
-        <Routes>                                              //fa-solid fa-spinner fa-spin-pulse
+        <Routes>
           <Route path='/' element={(display)?<PIcOfDay info={info} /> :<div><FontAwesomeIcon style={{color: 'white'}} icon={faSpinner} size='4x' className='fa-spin-pulse'/></div>} />
           <Route path='/mars' element={<Mars date={dateA} marsInfo={marsInfo} yesterday={yesterday} dayBefore={dayBefore} dayBeforeThat={dayBeforeThat} info={info} dateDayBack1={dateDayBack1} dateDayBack2={dateDayBack2} dateDayBack3={dateDayBack3} />} />
         </Routes>

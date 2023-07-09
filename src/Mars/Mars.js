@@ -81,9 +81,9 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       } else {
         setNoImageToDisplaySearch(false);
       } 
-  }, [searchData]);                           
+  }, [searchData, text]);                           
 
-  const searchInfo = searchData.map((item, index)=>{
+  const searchInfo = searchData?.map((item, index)=>{
     if(index <= number){
       return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
     } else {
@@ -91,7 +91,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     }
   });
 
-    const mappedInfo = marsInfo.map((item, index)=>{
+    const mappedInfo = marsInfo?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
       } else {
@@ -99,7 +99,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       }
     }); 
 
-    const yesterdayPics = yesterday.map((item, index)=>{
+    const yesterdayPics = yesterday?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
       } else {
@@ -107,7 +107,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       }
     }); 
 
-    const dayBeforePics = dayBefore.map((item, index)=>{
+    const dayBeforePics = dayBefore?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
       } else {
@@ -115,7 +115,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
       }
     }); 
 
-    const thirdDayPics = dayBeforeThat.map((item, index)=>{
+    const thirdDayPics = dayBeforeThat?.map((item, index)=>{
       if(index <= number){
         return <Images key={item.id} src={item.img_src} cam={item.camera.full_name} display={display}/>
       } else {
