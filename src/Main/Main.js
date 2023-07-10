@@ -29,8 +29,8 @@ export default function Main() {
         <div className='navLinks'>
           <Link to='/'><strong className='navLink A'>Image of the Day</strong></Link>
           <Link to='/mars'><strong className='navLink A'>Mars</strong></Link>
-          <strong className='navLink A'>Contact</strong>
-          <strong className='navLink'>About</strong>
+          <Link to='/contact'><strong className='navLink A'>Contact</strong></Link>
+          <Link to='/about'><strong className='navLink A'>About</strong></Link>
         </div>
       </div>
 
@@ -46,8 +46,8 @@ export default function Main() {
       <div className={(display)?'navLinksMobile':'navLinksMobileShow'}>
         <Link to='/' onClick={setMenu}><strong className='navLink A'>Image of the Day</strong></Link>
         <Link to='/mars' onClick={setMenu}><strong className='navLink A'>Mars</strong></Link>
-        <strong className='navLink A'>Contact</strong>
-        <strong className='navLink A'>About</strong>
+        <Link to='/contact' onClick={setMenu}><strong className='navLink A'>Contact</strong></Link>
+        <Link to='/about' onClick={setMenu}><strong className='navLink A'>About</strong></Link>
       </div>
 
       <div className="mainHead">

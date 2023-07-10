@@ -7,6 +7,8 @@ import PIcOfDay from './Nav/PIcOfDay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from './Context/UserContext';
+import About from './About/About';
+import Contact from './Contact/Contact';
 
 function App() {
   const [info, setInfo] = useState([]);
@@ -109,6 +111,8 @@ function App() {
         <Routes>
           <Route path='/' element={(display)?<PIcOfDay info={info} /> :<div><FontAwesomeIcon style={{color: 'white'}} icon={faSpinner} size='4x' className='fa-spin-pulse'/></div>} />
           <Route path='/mars' element={<Mars date={dateA} marsInfo={marsInfo} yesterday={yesterday} dayBefore={dayBefore} dayBeforeThat={dayBeforeThat} info={info} dateDayBack1={dateDayBack1} dateDayBack2={dateDayBack2} dateDayBack3={dateDayBack3} />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/about' element={<About />} />
         </Routes>
       </BrowserRouter>
     </div>

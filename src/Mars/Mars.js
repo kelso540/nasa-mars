@@ -30,6 +30,9 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   const [yesterdayPics, setYesterdayPics] = useState([]);
   const [dayBeforePics, setDayBeforePics] = useState([]);
   const [thirdDayPics, setThirdDayPics] = useState([]); 
+  const [roverDisplay, setRoverDisplay] = useState(true);
+  const [showDifferent, setShowDifferent] = useState(false); 
+  const [counter, setCounter] = useState(0); 
 
   const [searchInfo, setSearchInfo] = useState([]); 
 
@@ -63,9 +66,13 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     .then((data) => {
       console.log(data)
       setSearchData(data.photos) 
+      setRoverDisplay(true)
+      setCounter(prev=>prev+1)
     })
     .catch(err => {
       console.log('caught it!',err)
+      setRoverDisplay(false)
+      setDisplayDate('');
       setDayDisplay('Not a valid date')
       setDaySearch(true)
       setDay1(false)
@@ -76,19 +83,23 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   };
 
   useEffect(()=>{
+    if(counter > 0){
+      setShowDifferent(true)
+    }
+  }, [counter]); 
+
+  useEffect(()=>{
     setNumber(1);
     setDay1(false);
     setDay2(false);
     setDay3(false);
-    setNoImageToDisplaySearch(false);
     setDayDisplay(''); 
     setDisplayDate(text); 
+    setDaySearch(true);
     if(searchData.length <= 0){
-      setNoImageToDisplaySearch(true);
-      setDaySearch(true);  
+      setNoImageToDisplaySearch(true);  
     } else {
-      setNoImageToDisplaySearch(false);
-      setDaySearch(true); 
+      setNoImageToDisplaySearch(false); 
     } 
   }, [searchData, text]);                           
 
@@ -154,6 +165,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     setDay3(three);
     setDay4(four);
     setDaySearch(false);
+    setRoverDisplay(true);
     setDayDisplay(day); 
     setDisplayDate(date);
     if(info.length === 0){
@@ -196,7 +208,7 @@ useEffect(()=>{
       <div className='main'> 
         <h1>Mars Curiosity Images</h1>
         <h2>Today is {dayNow}</h2>
-        <h4>Rover photos from {dayDisplay} {displayDate}</h4>
+        <h4>{(roverDisplay)?'Rover photos from':''} {dayDisplay} {displayDate}</h4>
         <p className='paragraph1'>Type in a date or choose a day below...</p>
         <div className='searchBar'>
           <input type='text' onChange={handler} placeholder='YYYY-MM-DD' id='inputValue'/>
@@ -211,7 +223,8 @@ useEffect(()=>{
         </div>
       </div>
       <div className={(daySearch)?'day':'displayNone'}>
-        <h2 className={(noImageToDisplaySearch)?'display':'displayNone'}>No Pictures From That Day</h2>
+      <h2 className={(noImageToDisplaySearch)?'display':'displayNone'}>No Pictures to Display</h2>
+      <h2 className={(noImageToDisplaySearch)?'display':'displayNone'}>Select a day or type a {(showDifferent)?'different':''} date</h2>
         {searchInfo}
       </div>
       <div className={(day1)?'day':'displayNone'}>

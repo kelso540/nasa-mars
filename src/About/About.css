@@ -1,0 +1,17 @@
+a{
+    text-decoration: none;
+}
+.aboutDiv{
+    margin: auto;
+    width: 50%;
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    padding-bottom: 70px;
+}
+
+.aboutDiv a{
+    color: darkred;
+}
+.aboutDiv a:hover{
+    color: rgb(255, 255, 255);
+}
