@@ -47,8 +47,9 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   const fullDate = new Date().toString().split(' '); 
   const dayNow = `${fullDate[0]} ${fullDate[1]} ${fullDate[2]}, ${fullDate[3]}`;
 
+  // console.log([marsInfo, yesterday, dayBefore, dayBeforeThat, date, dateDayBack1, dateDayBack2, dateDayBack3])
+
   const getMarsPicturesToday = () => {
-    console.log('Text', text)
     fetch(`/.netlify/functions/getMarsData?date=${text}`)
     .then(async response => {
       if(!response.ok) {
@@ -60,6 +61,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
      }    
     })
     .then((data) => {
+      console.log(data)
       setSearchData(data.photos) 
     })
     .catch(err => {
@@ -74,19 +76,20 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
   };
 
   useEffect(()=>{
-    setNumber(1);  
-      setDay1(false);
-      setDay2(false);
-      setDay3(false);
-      setDay4(false);
-      setDayDisplay(''); 
-      setDisplayDate(text); 
-      if(searchData.length <= 0){
-        setNoImageToDisplaySearch(true); 
-        console.log('search ran');
-      } else {
-        setNoImageToDisplaySearch(false);
-      } 
+    setNumber(1);
+    setDay1(false);
+    setDay2(false);
+    setDay3(false);
+    setNoImageToDisplaySearch(false);
+    setDayDisplay(''); 
+    setDisplayDate(text); 
+    if(searchData.length <= 0){
+      setNoImageToDisplaySearch(true);
+      setDaySearch(true);  
+    } else {
+      setNoImageToDisplaySearch(false);
+      setDaySearch(true); 
+    } 
   }, [searchData, text]);                           
 
   useEffect(()=>{
@@ -166,6 +169,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
         setArrowDisplay(true); 
       } else {
         setArrowDisplay(false);
+        setNumber(1);
       }
     })
   }, [arrowDisplay]);
@@ -177,17 +181,13 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     }, 1200); 
   }; 
 
-  useEffect(()=>{
-    
-  }, [text])
-
   const handler = (e)=>{
     setText(e.target.value); 
   }
 
 useEffect(()=>{
   setPage('Mars Rover Images')
-})
+}, [setPage])
 
   document.addEventListener('scroll', getScroll); 
 
@@ -202,7 +202,7 @@ useEffect(()=>{
           <input type='text' onChange={handler} placeholder='YYYY-MM-DD' id='inputValue'/>
           <div className='searchBtn' onClick={getMarsPicturesToday}>&#x1F50E;&#xFE0E;</div>
         </div>
-        <p className='smallInformer'><strong>(include 0 before single digits ex. 2023-01-05)</strong></p>
+        <p className='smallInformer'><strong>(YYYY-MM-DD include 0 before single digits ex. 2023-01-05)</strong></p>
         <div className='flexBtn'>
           <div className='btn btn1' onClick={()=>sendData(false, false, false, true,'3 Days Ago', dateDayBack3, setNoImageToDisplay4, thirdDayPics)}></div>
           <div className='btn btn2' onClick={()=>sendData(false, false, true, false,'2 Days Ago', dateDayBack2, setNoImageToDisplay3, dayBeforePics)}></div> 
@@ -228,7 +228,6 @@ useEffect(()=>{
       </div>
       <div className={(day4)?'day':'displayNone'}>
         <h2 className={(noImageToDisplay4)?'display':'displayNone'}>No Pictures From 3 Days Ago</h2>
-        {console.log(thirdDayPics)}
         {thirdDayPics}
       </div>
       <div className={(arrowDisplay)?'arrow':'noArrow'} onClick={scrollToTop}>

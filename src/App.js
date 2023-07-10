@@ -12,10 +12,10 @@ function App() {
   const [info, setInfo] = useState([]);
   const [dayBefore, setDayBefore] = useState([]);
   const [dayBeforeThat, setDayBeforeThat] = useState([]);   
-  const [dateA, setDate] = useState(''); 
-  const [dateDayBack1, setDateDayBack1] = useState(''); 
-  const [dateDayBack2, setDateDayBack2] = useState('');
-  const [dateDayBack3, setDateDayBack3] = useState('');
+  const [dateA, setTodaysDate] = useState(undefined); 
+  const [dateDayBack1, setDateDayBack1] = useState(undefined); 
+  const [dateDayBack2, setDateDayBack2] = useState(undefined);
+  const [dateDayBack3, setDateDayBack3] = useState(undefined);
   const [marsInfo, setMarsInfo] = useState([]);
   const [yesterday, setYesterday] = useState([]); 
   const [call, setCall] = useState(false); 
@@ -25,6 +25,7 @@ function App() {
   // /.netlify/functions/getPicDay
 
     const getMarsPictures = (date, setState)=>{
+      console.log(date)
       fetch(`/.netlify/functions/getMarsData?date=${date}`)
       .then(async response => {
         if(!response.ok) {
@@ -36,6 +37,7 @@ function App() {
        }    
       })
       .then((response) => {
+        console.log(response)
         setState(response.photos)
       })
       .catch(err => {
@@ -64,7 +66,6 @@ function App() {
         };
 
         useEffect(()=>{
-          const getPictureOfDay = ()=>{
             setDisplay(false); 
             fetch(`/.netlify/functions/getPicDay`)
             .then(async response => {
@@ -78,8 +79,8 @@ function App() {
             })
             .then(async data => {
               setInfo(await data);
-              setDate(data.date);
-              makeDay(0, setDate);   
+              setTodaysDate(data.date);
+              makeDay(0, setTodaysDate);   
               makeDay(1, setDateDayBack1);
               makeDay(2, setDateDayBack2);
               makeDay(3, setDateDayBack3); 
@@ -88,9 +89,7 @@ function App() {
             })
             .catch(err => {
               console.log('caught it!',err)
-            }) 
-          };
-          getPictureOfDay(); 
+            })  
         }, []);
 
         useEffect(()=>{
