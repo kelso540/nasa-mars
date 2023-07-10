@@ -3,7 +3,7 @@ a{
 }
 .aboutDiv{
     margin: auto;
-    width: 50%;
+    width: 900px;
     color: rgb(255, 255, 255);
     font-size: 22px;
     padding-bottom: 70px;
@@ -14,4 +14,9 @@ a{
 }
 .aboutDiv a:hover{
     color: rgb(255, 255, 255);
+}
+@media screen and (max-width: 900px) {
+    .aboutDiv{
+        width: 90%;
+    }
 }
