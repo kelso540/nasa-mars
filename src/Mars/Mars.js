@@ -41,7 +41,7 @@ export default function Mars({date, marsInfo, yesterday, dayBefore, dayBeforeTha
     const clientHeight = document.documentElement.clientHeight; 
     const scrollTop = document.documentElement.scrollTop; 
     const scrollMinusClient = scrollHeight - clientHeight; 
-    if (scrollTop > (scrollMinusClient - 50)){
+    if (scrollTop > (scrollMinusClient - 200)){
       setNumber(number + 1);
       setDisplay(!display);    
     } 

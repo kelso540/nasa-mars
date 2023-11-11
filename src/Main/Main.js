@@ -30,7 +30,7 @@ export default function Main() {
           <Link to='/'><strong className='navLink A'>Image of the Day</strong></Link>
           <Link to='/mars'><strong className='navLink A'>Mars</strong></Link>
           <Link to='/contact'><strong className='navLink A'>Contact</strong></Link>
-          <Link to='/about'><strong className='navLink A'>About</strong></Link>
+          <Link to='/about'><strong className='navLink'>About</strong></Link>
         </div>
       </div>
 
